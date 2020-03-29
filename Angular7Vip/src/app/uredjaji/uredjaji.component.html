@@ -1,0 +1,24 @@
+<table class="table table-hover">
+    <thead class="thead-light">
+        <th>Naziv</th>
+        <th>Model</th>
+        <th>Cena</th>
+        <th>Boja</th>
+        <th>Proizvodjac</th>
+        <th>
+            <a class="btn btn-outline-success" routerLink="/uredjaj"><i class="fa fa-plus-square"></i> Unesi novi uredjaj</a>
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of listaUredjaja">
+            <th (click)="openForEdit(item.IDUredjaja)">{{item.Naziv}}</th>
+            <th (click)="openForEdit(item.IDUredjaja)">{{item.Model}}</th>
+            <th (click)="openForEdit(item.IDUredjaja)">{{item.Cena}}</th>
+            <th (click)="openForEdit(item.IDUredjaja)">{{item.Boja}}</th>
+            <th (click)="openForEdit(item.IDUredjaja)">{{item.Proizvodjac}}</th>
+            <td>
+                <a class="btn text-danger" (click)="onUredjajDelete(item.IDUredjaja)"><i class="fa fa-trash fa-lg"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>

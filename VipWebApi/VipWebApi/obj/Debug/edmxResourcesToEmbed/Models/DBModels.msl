@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="VipMobileShopDBModelStoreContainer" CdmEntityContainer="VipMobileShopDBEntities">
+    <EntitySetMapping Name="Klijents">
+      <EntityTypeMapping TypeName="VipMobileShopDBModel.Klijent">
+        <MappingFragment StoreEntitySet="Klijent">
+          <ScalarProperty Name="IDKlijenta" ColumnName="IDKlijenta" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ponudas">
+      <EntityTypeMapping TypeName="VipMobileShopDBModel.Ponuda">
+        <MappingFragment StoreEntitySet="Ponuda">
+          <ScalarProperty Name="IDPonude" ColumnName="IDPonude" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proizvodjacs">
+      <EntityTypeMapping TypeName="VipMobileShopDBModel.Proizvodjac">
+        <MappingFragment StoreEntitySet="Proizvodjac">
+          <ScalarProperty Name="IDProizvodjaca" ColumnName="IDProizvodjaca" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StavkaPonudes">
+      <EntityTypeMapping TypeName="VipMobileShopDBModel.StavkaPonude">
+        <MappingFragment StoreEntitySet="StavkaPonude">
+          <ScalarProperty Name="Rbr" ColumnName="Rbr" />
+          <ScalarProperty Name="IDUredjaja" ColumnName="IDUredjaja" />
+          <ScalarProperty Name="IDTP" ColumnName="IDTP" />
+          <ScalarProperty Name="IDPonude" ColumnName="IDPonude" />
+          <ScalarProperty Name="IDKlijenta" ColumnName="IDKlijenta" />
+          <ScalarProperty Name="IDZap" ColumnName="IDZap" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TarifniPakets">
+      <EntityTypeMapping TypeName="VipMobileShopDBModel.TarifniPaket">
+        <MappingFragment StoreEntitySet="TarifniPaket">
+          <ScalarProperty Name="IDTP" ColumnName="IDTP" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="BrMinuta" ColumnName="BrMinuta" />
+          <ScalarProperty Name="BrPoruka" ColumnName="BrPoruka" />
+          <ScalarProperty Name="KolicinaMB" ColumnName="KolicinaMB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uredjajs">
+      <EntityTypeMapping TypeName="VipMobileShopDBModel.Uredjaj">
+        <MappingFragment StoreEntitySet="Uredjaj">
+          <ScalarProperty Name="IDUredjaja" ColumnName="IDUredjaja" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Cena" ColumnName="Cena" />
+          <ScalarProperty Name="Boja" ColumnName="Boja" />
+          <ScalarProperty Name="IDProizvodjaca" ColumnName="IDProizvodjaca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zaposlenis">
+      <EntityTypeMapping TypeName="VipMobileShopDBModel.Zaposleni">
+        <MappingFragment StoreEntitySet="Zaposleni">
+          <ScalarProperty Name="IDZap" ColumnName="IDZap" />
+          <ScalarProperty Name="ImePrezime" ColumnName="ImePrezime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

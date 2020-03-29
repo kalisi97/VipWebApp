@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="513ee7d0bca64612b62f059c239a9edb" Name="Diagram1">
+        <EntityTypeShape EntityType="VipMobileDBModel.Klijent" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VipMobileDBModel.Ponuda" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VipMobileDBModel.Proizvodjac" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VipMobileDBModel.StavkaPonude" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VipMobileDBModel.TarifniPaket" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VipMobileDBModel.Uredjaj" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="VipMobileDBModel.Zaposleni" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="VipMobileDBModel.FK_Ponuda_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="VipMobileDBModel.FK_Ponuda_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="VipMobileDBModel.FK_StavkaPonude_ToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="VipMobileDBModel.FK_Uredjaj_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="VipMobileDBModel.FK_StavkaPonude_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="VipMobileDBModel.FK_StavkaPonude_ToTable_1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

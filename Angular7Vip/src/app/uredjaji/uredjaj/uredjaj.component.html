@@ -1,0 +1,69 @@
+<form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)"> 
+    <input type="hidden"  name="IDUredjaja" #IDUredjaja="ngModel" [(ngModel)]="service.formData.IDUredjaja">
+<div class="row">
+    
+<div class="col-md-6">
+        <div class="form-group">
+            <label >Unesi cenu</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">$</div>
+                </div>
+            <input name="Cena" #Cena="ngModel" [(ngModel)]="service.formData.Cena" class="form-control" [class.is-invalid]="(!isValid && jesteBroj==false) || (!isValid  && service.formData.Cena.length==0)">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label >Unesi boju</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">#</div>
+            </div>
+        <input name="Boja" #Boja="ngModel" [(ngModel)]="service.formData.Boja" class="form-control" [class.is-invalid]="!isValid && service.formData.Boja.length==0">
+    </div>
+</div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label >Unesi naziv</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">#</div>
+            </div>
+        <input name="Naziv" #Naziv="ngModel" [(ngModel)]="service.formData.Naziv" class="form-control" [class.is-invalid]="!isValid && service.formData.Naziv.length==0">
+    </div>
+</div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label >Unesi model</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">#</div>
+            </div>
+        <input name="Model" #Model="ngModel" [(ngModel)]="service.formData.Model" class="form-control" [class.is-invalid]="!isValid && service.formData.Model.length==0">
+    </div>
+</div>
+</div>
+
+
+
+
+        <div class="col-md-6">
+        <div class="form-group">
+            <label >Proizvodjac</label>
+            <select name="IDProizvodjaca" #IDProizvodjaca="ngModel" [(ngModel)]="service.formData.IDProizvodjaca" class="form-control"  [class.is-invalid]="!isValid && service.formData.IDProizvodjaca==0">
+                <option value="0">--Izaberi proizvodjaca--</option>
+                <option *ngFor="let item of listaProizvodjaca" value="{{item.IDProizvodjaca}}">{{item.Naziv}}</option> 
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+   <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Sacuvaj </button>
+   <a  class="btn btn-outline-dark ml-1" routerLink="/uredjaji"><i class="fa fa-table"></i> Pogledaj sve uredjaje</a>
+</div>
+</form>
+

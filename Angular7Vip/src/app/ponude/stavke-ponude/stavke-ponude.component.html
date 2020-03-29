@@ -1,0 +1,33 @@
+<h1 class="display-4" style="font-size: medium;">Unos stavke ponude</h1>
+<hr>
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <input type="hidden" name="Rbr" #Rbr="ngModel" [(ngModel)]="formData.Rbr">
+  <input type="hidden" name="IDUredjaja" #IDUredjaja="ngModel" [(ngModel)]="formData.IDUredjaja">
+  <input type="hidden" name="Naziv" #Naziv="ngModel" [(ngModel)]="formData.Naziv">
+  <input type="hidden" name="IDTP" #IDTP="ngModel" [(ngModel)]="formData.IDTP">
+  <input type="hidden" name="NazivT" #NazivT="ngModel" [(ngModel)]="formData.NazivT">
+  <input type="hidden" name="IDPonude" #IDPonude="ngModel" [(ngModel)]="formData.IDPonude">
+
+  <div class="row">
+    <div class="form-group col-md-6">
+        <label>Uredjaj</label>
+        <select name="IDUredjaja" #IDUredjaja="ngModel" [(ngModel)]="formData.IDUredjaja" class="form-control" (change)="popuniPolja($event.target)"
+        [class.is-invalid]="!isValid && formData.IDUredjaja==0">
+            <option value="0">--Izaberi uredjaj--</option>
+           <option *ngFor="let item of listaUredjaja" value="{{item.IDUredjaja}}">{{item.Naziv}}</option> 
+        </select>
+    </div>
+    <div class="form-group col-md-6">
+        <label>Tarifa</label>
+        <select name="IDTP" #IDTP="ngModel" [(ngModel)]="formData.IDTP" class="form-control"
+        [class.is-invalid]="!isValid && formData.IDTP==0" (change)="popuniSve($event.target)">
+            <option value="0">--Izaberi tarifu--</option>
+            <option *ngFor="let item of listaTarifa" value="{{item.IDTP}}">{{item.NazivT}}</option> 
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Sacuvaj</button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Zatvori</button>
+</div>
+</form>

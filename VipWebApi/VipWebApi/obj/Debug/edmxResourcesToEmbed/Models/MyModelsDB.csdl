@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VipMobileDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Klijent">
+    <Key>
+      <PropertyRef Name="IDKlijenta" />
+    </Key>
+    <Property Name="IDKlijenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ponudas" Relationship="Self.FK_Ponuda_ToTable_1" FromRole="Klijent" ToRole="Ponuda" />
+  </EntityType>
+  <EntityType Name="Ponuda">
+    <Key>
+      <PropertyRef Name="IDPonude" />
+    </Key>
+    <Property Name="IDPonude" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDZap" Type="Int32" />
+    <Property Name="IDKlijenta" Type="Int32" />
+    <Property Name="Datum" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Klijent" Relationship="Self.FK_Ponuda_ToTable_1" FromRole="Ponuda" ToRole="Klijent" />
+    <NavigationProperty Name="Zaposleni" Relationship="Self.FK_Ponuda_ToTable" FromRole="Ponuda" ToRole="Zaposleni" />
+    <NavigationProperty Name="StavkaPonudes" Relationship="Self.FK_StavkaPonude_ToTable_2" FromRole="Ponuda" ToRole="StavkaPonude" />
+  </EntityType>
+  <EntityType Name="Proizvodjac">
+    <Key>
+      <PropertyRef Name="IDProizvodjaca" />
+    </Key>
+    <Property Name="IDProizvodjaca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Uredjajs" Relationship="Self.FK_Uredjaj_ToTable" FromRole="Proizvodjac" ToRole="Uredjaj" />
+  </EntityType>
+  <EntityType Name="StavkaPonude">
+    <Key>
+      <PropertyRef Name="Rbr" />
+      <PropertyRef Name="IDPonude" />
+    </Key>
+    <Property Name="Rbr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDPonude" Type="Int32" Nullable="false" />
+    <Property Name="IDTP" Type="Int32" />
+    <Property Name="IDUredjaja" Type="Int32" />
+    <NavigationProperty Name="Ponuda" Relationship="Self.FK_StavkaPonude_ToTable_2" FromRole="StavkaPonude" ToRole="Ponuda" />
+    <NavigationProperty Name="TarifniPaket" Relationship="Self.FK_StavkaPonude_ToTable" FromRole="StavkaPonude" ToRole="TarifniPaket" />
+    <NavigationProperty Name="Uredjaj" Relationship="Self.FK_StavkaPonude_ToTable_1" FromRole="StavkaPonude" ToRole="Uredjaj" />
+  </EntityType>
+  <EntityType Name="TarifniPaket">
+    <Key>
+      <PropertyRef Name="IDTP" />
+    </Key>
+    <Property Name="IDTP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NazivT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BrMinuta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KolicinaMB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BrPoruka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="StavkaPonudes" Relationship="Self.FK_StavkaPonude_ToTable" FromRole="TarifniPaket" ToRole="StavkaPonude" />
+  </EntityType>
+  <EntityType Name="Uredjaj">
+    <Key>
+      <PropertyRef Name="IDUredjaja" />
+    </Key>
+    <Property Name="IDUredjaja" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Boja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IDProizvodjaca" Type="Int32" />
+    <NavigationProperty Name="Proizvodjac" Relationship="Self.FK_Uredjaj_ToTable" FromRole="Uredjaj" ToRole="Proizvodjac" />
+    <NavigationProperty Name="StavkaPonudes" Relationship="Self.FK_StavkaPonude_ToTable_1" FromRole="Uredjaj" ToRole="StavkaPonude" />
+  </EntityType>
+  <EntityType Name="Zaposleni">
+    <Key>
+      <PropertyRef Name="IDZap" />
+    </Key>
+    <Property Name="IDZap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImePrezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ponudas" Relationship="Self.FK_Ponuda_ToTable" FromRole="Zaposleni" ToRole="Ponuda" />
+  </EntityType>
+  <Association Name="FK_Ponuda_ToTable_1">
+    <End Role="Klijent" Type="Self.Klijent" Multiplicity="0..1" />
+    <End Role="Ponuda" Type="Self.Ponuda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klijent">
+        <PropertyRef Name="IDKlijenta" />
+      </Principal>
+      <Dependent Role="Ponuda">
+        <PropertyRef Name="IDKlijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ponuda_ToTable">
+    <End Role="Zaposleni" Type="Self.Zaposleni" Multiplicity="0..1" />
+    <End Role="Ponuda" Type="Self.Ponuda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zaposleni">
+        <PropertyRef Name="IDZap" />
+      </Principal>
+      <Dependent Role="Ponuda">
+        <PropertyRef Name="IDZap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StavkaPonude_ToTable_2">
+    <End Role="Ponuda" Type="Self.Ponuda" Multiplicity="1" />
+    <End Role="StavkaPonude" Type="Self.StavkaPonude" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ponuda">
+        <PropertyRef Name="IDPonude" />
+      </Principal>
+      <Dependent Role="StavkaPonude">
+        <PropertyRef Name="IDPonude" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Uredjaj_ToTable">
+    <End Role="Proizvodjac" Type="Self.Proizvodjac" Multiplicity="0..1" />
+    <End Role="Uredjaj" Type="Self.Uredjaj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proizvodjac">
+        <PropertyRef Name="IDProizvodjaca" />
+      </Principal>
+      <Dependent Role="Uredjaj">
+        <PropertyRef Name="IDProizvodjaca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StavkaPonude_ToTable">
+    <End Role="TarifniPaket" Type="Self.TarifniPaket" Multiplicity="0..1" />
+    <End Role="StavkaPonude" Type="Self.StavkaPonude" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TarifniPaket">
+        <PropertyRef Name="IDTP" />
+      </Principal>
+      <Dependent Role="StavkaPonude">
+        <PropertyRef Name="IDTP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StavkaPonude_ToTable_1">
+    <End Role="Uredjaj" Type="Self.Uredjaj" Multiplicity="0..1" />
+    <End Role="StavkaPonude" Type="Self.StavkaPonude" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uredjaj">
+        <PropertyRef Name="IDUredjaja" />
+      </Principal>
+      <Dependent Role="StavkaPonude">
+        <PropertyRef Name="IDUredjaja" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VipMobileDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Klijents" EntityType="Self.Klijent" />
+    <EntitySet Name="Ponudas" EntityType="Self.Ponuda" />
+    <EntitySet Name="Proizvodjacs" EntityType="Self.Proizvodjac" />
+    <EntitySet Name="StavkaPonudes" EntityType="Self.StavkaPonude" />
+    <EntitySet Name="TarifniPakets" EntityType="Self.TarifniPaket" />
+    <EntitySet Name="Uredjajs" EntityType="Self.Uredjaj" />
+    <EntitySet Name="Zaposlenis" EntityType="Self.Zaposleni" />
+    <AssociationSet Name="FK_Ponuda_ToTable_1" Association="Self.FK_Ponuda_ToTable_1">
+      <End Role="Klijent" EntitySet="Klijents" />
+      <End Role="Ponuda" EntitySet="Ponudas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ponuda_ToTable" Association="Self.FK_Ponuda_ToTable">
+      <End Role="Zaposleni" EntitySet="Zaposlenis" />
+      <End Role="Ponuda" EntitySet="Ponudas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StavkaPonude_ToTable_2" Association="Self.FK_StavkaPonude_ToTable_2">
+      <End Role="Ponuda" EntitySet="Ponudas" />
+      <End Role="StavkaPonude" EntitySet="StavkaPonudes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Uredjaj_ToTable" Association="Self.FK_Uredjaj_ToTable">
+      <End Role="Proizvodjac" EntitySet="Proizvodjacs" />
+      <End Role="Uredjaj" EntitySet="Uredjajs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StavkaPonude_ToTable" Association="Self.FK_StavkaPonude_ToTable">
+      <End Role="TarifniPaket" EntitySet="TarifniPakets" />
+      <End Role="StavkaPonude" EntitySet="StavkaPonudes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StavkaPonude_ToTable_1" Association="Self.FK_StavkaPonude_ToTable_1">
+      <End Role="Uredjaj" EntitySet="Uredjajs" />
+      <End Role="StavkaPonude" EntitySet="StavkaPonudes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,65 @@
+<form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)"> 
+    <input type="hidden"  name="IDPonude" #IDPonude="ngModel" [(ngModel)]="service.formData.IDPonude">
+<div class="row">
+    
+<div class="col-md-6">
+        <div class="form-group">
+            <label >Datum</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">#</div>
+                </div>
+            <input name="Datum" #Datum="ngModel" [(ngModel)]="service.formData.Datum" class="form-control">
+        </div>
+    </div>
+</div>
+        <div class="col-md-6">
+        <div class="form-group">
+            <label >Klijent</label>
+            <select name="IDKlijenta" #IDKlijenta="ngModel" [(ngModel)]="service.formData.IDKlijenta" class="form-control"  [class.is-invalid]="!isValid && service.formData.IDKlijenta==0">
+                <option value="0">--Izaberi klijenta--</option>
+                <option *ngFor="let item of listaKlijenata" value="{{item.IDKlijenta}}">{{item.Naziv}}</option> 
+            </select>
+        </div>
+    </div>
+        <div class="col-md-6">
+        <div class="form-group">
+            <label >Zaposleni</label>
+            <select name="IDZap" #IDZap="ngModel" [(ngModel)]="service.formData.IDZap" class="form-control"  [class.is-invalid]="!isValid && service.formData.IDZap==0">
+                <option value="0">--Izaberi zaposlenog--</option>
+                <option *ngFor="let item of listaZaposlenih" value="{{item.IDZap}}">{{item.ImePrezime}}</option> 
+            </select>
+        </div>
+    </div>
+</div>
+<table class="table table-borderless">
+    <thead class="thead-light">
+    
+    <th>Uredjaj</th>
+    <th>Tarifni paket</th>
+    <th>
+        <a class="btn btn-sm btn-success text-white" (click)="AddOrEditStavka(null,service.formData.IDPonude)"><i class="fa fa-plus"></i></a>
+        
+
+    </th>
+</thead>
+<tbody>
+    <tr *ngIf="service.stavkePonude.length==0" [class.text-danger]="!isValid && service.stavkePonude.length==0">
+        <td class="font-italic text-center" colspan="3">Nije izabrana nijedna stavka!</td>
+    </tr>
+    <tr *ngFor="let stavka of service.stavkePonude;let i=index">
+
+    <td>{{stavka.Naziv}}</td>
+    <td>{{stavka.NazivT}}</td>
+    <td>
+        <a class="btn btn-sm btn-info text-white" (click)="AddOrEditStavka(i,service.formData.IDPonude)"><i class="fa fa-pencil"></i></a>
+        <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteStavka(stavka.Rbr,i)"><i class="fa fa-trash"></i></a>
+        </td>
+</tr>
+</tbody>
+</table>
+<div class="form-group">
+   <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Sacuvaj </button>
+   <a  class="btn btn-outline-dark ml-1" routerLink="/ponude"><i class="fa fa-table"></i> Pogledaj sve ponude</a>
+</div>
+</form>
