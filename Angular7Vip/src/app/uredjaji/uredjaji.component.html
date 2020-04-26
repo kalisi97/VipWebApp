@@ -1,3 +1,18 @@
+
+
+<div class="form-group" style="width: 300px">
+  
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-search"></i></div>
+        </div>
+        <input type="text" class="form-control" placeholder="Unesite naziv uređaja ..." [(ngModel)]="term">
+
+</div>
+</div>
+
+
+
 <table class="table table-hover">
     <thead class="thead-light">
         <th>Naziv</th>
@@ -12,7 +27,7 @@
         </th>
     </thead>
     <tbody>
-        <tr *ngFor="let item of listaUredjaja">
+        <tr *ngFor="let item of listaUredjaja | filter:term">
             <th (click)="openForEdit(item.IDUredjaja)">{{item.Naziv}}</th>
             <th (click)="openForEdit(item.IDUredjaja)">{{item.Model}}</th>
             <th (click)="openForEdit(item.IDUredjaja)">{{item.Cena}}</th>

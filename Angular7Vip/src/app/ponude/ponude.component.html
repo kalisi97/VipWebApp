@@ -1,3 +1,17 @@
+
+
+<div class="form-group" style="width: 300px">
+  
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-search"></i></div>
+        </div>
+        <input type="date" id="date" class="form-control" title="Odaberite datum za pretragu" [(ngModel)]="term">
+
+</div>
+</div>
+
+
 <table class="table table-hover">
     <thead class="thead-light">
         <th>Datum</th>
@@ -9,8 +23,8 @@
         </th>
     </thead>
     <tbody>
-        <tr *ngFor="let item of listaPonuda">
-            <th (click)="openForEdit(item.IDPonude)">{{item.Datum | date:'dd/MM/yyyy'}}</th>
+        <tr *ngFor="let item of listaPonuda | filter:term">
+            <th (click)="openForEdit(item.IDPonude)">{{item.Datum | date : 'dd/MM/yyyy'}}</th>
             <th (click)="openForEdit(item.IDPonude)">{{item.Klijent}}</th>
             <th (click)="openForEdit(item.IDPonude)">{{item.Zaposleni}}</th>
             <td>

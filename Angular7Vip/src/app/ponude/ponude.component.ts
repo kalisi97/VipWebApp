@@ -3,6 +3,7 @@ import { PonudaService } from '../shared/ponuda.service';
 import { Ponuda } from '../shared/ponuda.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 @Component({
   selector: 'app-ponude',
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PonudeComponent implements OnInit {
   listaPonuda;
-
+term;
   constructor(public ponudaService:PonudaService, private router: Router,
     private toastr: ToastrService,
   

@@ -60,6 +60,44 @@ namespace VipWebApi.Controllers
             return Ok(new { uredjaj });
         }
 
+
+
+
+
+        public IHttpActionResult GetUredjajByFilter(string nazivUredjaja)
+        {
+            var uredjaj = (from a in db.Uredjajs
+                          where a.Naziv.ToLower().Contains(nazivUredjaja.ToLower())
+
+                           select new
+                           {
+                               a.IDUredjaja,
+                               a.Naziv,
+                               a.Model,
+                               a.Boja,
+                               a.Cena,
+                               a.IDProizvodjaca
+
+
+                           }).FirstOrDefault();
+
+
+
+            return Ok(new { uredjaj });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         [ResponseType(typeof(Uredjaj))]
         public IHttpActionResult PostUredjajs(Uredjaj uredjaj)
         {

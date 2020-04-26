@@ -16,7 +16,10 @@ export class UredjajService {
 return this.http.get(environment.apiUrl+'/Uredjaj').toPromise();
   }
 
-
+  getUredjajByFilter(nazivUredjaja:string){
+    return this.http.get(environment.apiUrl+'/Uredjaj').toPromise();
+      }
+      
   getUredjajById(id:number):any{
     return this.http.get(environment.apiUrl+'/Uredjaj/'+id).toPromise();
       }

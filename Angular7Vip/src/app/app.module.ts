@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 MatInputModule
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ MatInputModule
     ToastrModule.forRoot(),
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    Ng2SearchPipeModule
   ],
   entryComponents:[StavkePonudeComponent],
   providers: [PonudaService,MatDatepickerModule,MatNativeDateModule,MatInputModule],

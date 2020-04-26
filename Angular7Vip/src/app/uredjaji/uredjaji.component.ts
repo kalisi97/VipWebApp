@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UredjajService } from '../shared/uredjaj.service';
 import { Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 @Component({
   selector: 'app-uredjaji',
   templateUrl: './uredjaji.component.html',
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UredjajiComponent implements OnInit {
 listaUredjaja;
+term: string;
   constructor(public uredjajService:UredjajService,
     private router: Router,
     private toastr: ToastrService) { }
@@ -35,6 +36,6 @@ listaUredjaja;
     }
   }
   
- 
+
 
 }

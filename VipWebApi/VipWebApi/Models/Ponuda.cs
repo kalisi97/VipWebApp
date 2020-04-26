@@ -25,6 +25,7 @@ namespace VipWebApi.Models
         public int IDPonude { get; set; }
         public Nullable<int> IDZap { get; set; }
         public Nullable<int> IDKlijenta { get; set; }
+      
         public Nullable<System.DateTime> Datum { get; set; }
         [NotMapped]
         public string DeletedStavkeIDs { get; set; }
