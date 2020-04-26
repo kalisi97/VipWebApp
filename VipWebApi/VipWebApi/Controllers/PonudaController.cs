@@ -27,11 +27,17 @@ namespace VipWebApi.Controllers
                           {
                               a.IDPonude,
                               a.Datum,
+                             
                               Klijent = b.Naziv,
                               Zaposleni = c.ImePrezime
+
                               
                             
                           }).ToList();
+
+
+           
+
 
             return result;
         }
@@ -68,7 +74,7 @@ namespace VipWebApi.Controllers
                                   
                                    
                                 }).ToList();
-
+            
             return Ok(new { ponuda, ponudaDetails });
         }
        

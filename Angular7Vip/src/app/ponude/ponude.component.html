@@ -5,11 +5,12 @@
         <th>Zaposleni</th>
         <th>
             <a  class="btn btn-outline-success" routerLink="/ponuda"><i class="fa fa-plus-square"></i> Kreiraj novu ponudu</a>
+            <a  class="btn btn-outline-info ml-1" routerLink="/home"><i class="fa fa-home"></i> Pocetna strana</a>
         </th>
     </thead>
     <tbody>
         <tr *ngFor="let item of listaPonuda">
-            <th (click)="openForEdit(item.IDPonude)">{{item.Datum}}</th>
+            <th (click)="openForEdit(item.IDPonude)">{{item.Datum | date:'dd/MM/yyyy'}}</th>
             <th (click)="openForEdit(item.IDPonude)">{{item.Klijent}}</th>
             <th (click)="openForEdit(item.IDPonude)">{{item.Zaposleni}}</th>
             <td>

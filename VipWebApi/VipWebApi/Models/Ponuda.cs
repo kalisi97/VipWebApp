@@ -12,6 +12,7 @@ namespace VipWebApi.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Ponuda
     {
@@ -25,7 +26,10 @@ namespace VipWebApi.Models
         public Nullable<int> IDZap { get; set; }
         public Nullable<int> IDKlijenta { get; set; }
         public Nullable<System.DateTime> Datum { get; set; }
+        [NotMapped]
         public string DeletedStavkeIDs { get; set; }
+
+      
         public virtual Klijent Klijent { get; set; }
         public virtual Zaposleni Zaposleni { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

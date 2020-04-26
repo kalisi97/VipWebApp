@@ -14,7 +14,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { UredjajComponent } from './uredjaji/uredjaj/uredjaj.component';
 import { UredjajiComponent } from './uredjaji/uredjaji.component';
 import { HomeComponent } from './home/home.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+MatInputModule
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,10 +35,13 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     MatDialogModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   entryComponents:[StavkePonudeComponent],
-  providers: [PonudaService],
+  providers: [PonudaService,MatDatepickerModule,MatNativeDateModule,MatInputModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

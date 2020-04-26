@@ -1,6 +1,7 @@
+    
 import { Component, OnInit } from '@angular/core';
 import { PonudaService } from 'src/app/shared/ponuda.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { StavkePonudeComponent } from '../stavke-ponude/stavke-ponude.component';
 import { ZaposleniService } from 'src/app/shared/zaposleni.service';
@@ -8,10 +9,11 @@ import { Zaposleni } from 'src/app/shared/zaposleni.model';
 import { Klijent } from 'src/app/shared/klijent.model';
 import { KlijentService } from 'src/app/shared/klijent.service';
 import { StavkaPonudaService } from 'src/app/shared/stavka-ponuda.service';
-import { StavkaPonuda } from 'src/app/shared/stavka-ponuda.model';
 import { ToastrService } from 'ngx-toastr';
 import {  Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
 @Component({
   selector: 'app-ponuda',
   templateUrl: './ponuda.component.html',
@@ -22,6 +24,7 @@ export class PonudaComponent implements OnInit {
 listaZaposlenih : Zaposleni[];
 listaKlijenata : Klijent[];
 isValid: boolean=true;
+
 
 
 
@@ -39,7 +42,9 @@ isValid: boolean=true;
     this.resetForm();
     else { this.service.getPonudaByID(parseInt(ponudaId)).then(res => {
       this.service.formData = res.ponuda;
+      this.service.formData.Datum = res.ponuda.Datum;
       this.service.stavkePonude = res.ponudaDetails;
+     
     });
   }
     this.klijentService.getKlijenti().then(res=> this.listaKlijenata = res as Klijent[]);
@@ -48,17 +53,26 @@ isValid: boolean=true;
     
   }
   
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    this.service.formData.Datum = event.value;
+   
+  }
+
+
   resetForm(form?:NgForm){
     if(form=null)
     form.resetForm();
     this.service.formData={
       IDPonude: null,
-      Datum: new Date,
+      Datum: null,
       IDZap: 0,
       IDKlijenta: 0,
-      DeletedStavkeIDs: ''
+      DeletedStavkeIDs: '',
+      V: ""
     }
     this.service.stavkePonude=[];
+  
   }
 
   onDeleteStavka(rbr:number,i:number){
@@ -90,15 +104,20 @@ onSubmit(form: NgForm) {
 
 }
 
-
 validateForm() {
   this.isValid = true;
+if(this.service.formData.Datum == null) this.isValid = false;
   if (this.service.formData.IDKlijenta == 0)
     this.isValid = false;
     if (this.service.formData.IDZap == 0)
     this.isValid = false;
   else if (this.service.stavkePonude.length == 0)
     this.isValid = false;
+   
   return this.isValid;
 }
+
+
+ 
+
 }

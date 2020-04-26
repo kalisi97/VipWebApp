@@ -11,8 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PonudeComponent implements OnInit {
   listaPonuda;
+
   constructor(public ponudaService:PonudaService, private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+  
+    ) { }
 
   ngOnInit(): void {
     this.refreshList();
@@ -24,6 +27,9 @@ export class PonudeComponent implements OnInit {
 
   refreshList() {
     this.ponudaService.getPonude().then(res => this.listaPonuda = res);
+   
+  
+   
   }
   onPonudaDelete(id: number) {
     if (confirm('Da li ste sigurni da zelite da obrisete podatke o ponudi?')) {

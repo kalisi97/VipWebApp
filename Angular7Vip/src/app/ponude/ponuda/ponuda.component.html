@@ -1,19 +1,8 @@
 <form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)"> 
     <input type="hidden"  name="IDPonude" #IDPonude="ngModel" [(ngModel)]="service.formData.IDPonude">
 <div class="row">
-    
-<div class="col-md-6">
-        <div class="form-group">
-            <label >Datum</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">#</div>
-                </div>
-            <input name="Datum" #Datum="ngModel" [(ngModel)]="service.formData.Datum" class="form-control">
-        </div>
-    </div>
-</div>
-        <div class="col-md-6">
+
+        <div class="col-5">
         <div class="form-group">
             <label >Klijent</label>
             <select name="IDKlijenta" #IDKlijenta="ngModel" [(ngModel)]="service.formData.IDKlijenta" class="form-control"  [class.is-invalid]="!isValid && service.formData.IDKlijenta==0">
@@ -22,7 +11,8 @@
             </select>
         </div>
     </div>
-        <div class="col-md-6">
+  
+        <div class="col-5">
         <div class="form-group">
             <label >Zaposleni</label>
             <select name="IDZap" #IDZap="ngModel" [(ngModel)]="service.formData.IDZap" class="form-control"  [class.is-invalid]="!isValid && service.formData.IDZap==0">
@@ -31,6 +21,45 @@
             </select>
         </div>
     </div>
+</div>
+<div class="row">
+    
+    <div class="col-5">
+        <div class="form-group">
+            <label >Datum</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"></div>
+                </div>
+                  <input name="Datum"  #Datum="ngModel" [(ngModel)]="service.formData.Datum"
+          type="datetime-local" class="form-control" title="Unos/izmena datuma" [class.is-invalid]="!isValid && service.formData.Datum == null"/>
+    
+        
+        </div>
+    </div>
+  </div>
+
+
+<!--
+    <div class="col-5" id="picker">
+       
+        <div class="form-group">
+           
+   
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" 
+            
+      (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  class="form-control" title="Unos/izmena datuma" [class.is-invalid]="!isValid && service.formData.Datum == null">
+                <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                {{service.formData.Datum | date:'dd/MM/yyyy'}}
+              </mat-form-field>
+              
+    </div>
+</div>
+-->
+
+
 </div>
 <table class="table table-borderless">
     <thead class="thead-light">
@@ -63,3 +92,7 @@
    <a  class="btn btn-outline-dark ml-1" routerLink="/ponude"><i class="fa fa-table"></i> Pogledaj sve ponude</a>
 </div>
 </form>
+
+<script>
+
+</script>
