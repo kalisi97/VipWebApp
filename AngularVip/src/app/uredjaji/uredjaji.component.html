@@ -22,12 +22,11 @@
         <th>Proizvodjac</th>
         <th>
             <a class="btn btn-outline-success" routerLink="/uredjaj"><i class="fa fa-plus-square"></i> Novi uredjaj</a>
-            <a  class="btn btn-outline-info ml-1" routerLink="/home"><i class="fa fa-home"></i> Pocetna strana</a>
 
         </th>
     </thead>
     <tbody>
-        <tr *ngFor="let item of listaUredjaja | filter:term">
+        <tr *ngFor="let item of listaUredjaja | filter:term" title="Za izmenu kliknite na naziv uređaja">
             <th (click)="openForEdit(item.IDUredjaja)">{{item.Naziv}}</th>
             <th (click)="openForEdit(item.IDUredjaja)">{{item.Model}}</th>
             <th (click)="openForEdit(item.IDUredjaja)">{{item.Cena}}</th>
