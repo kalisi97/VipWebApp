@@ -13,7 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 import {  Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
+import { ErrorHandlerService } from './../../shared/services/error-handler.service';
+import { getLocaleDateTimeFormat } from '@angular/common';
 @Component({
   selector: 'app-ponuda',
   templateUrl: './ponuda.component.html',
@@ -34,6 +35,7 @@ isValid: boolean=true;
     public stavkaService: StavkaPonudaService,
     public toastr: ToastrService,
     public router:Router,
+    public errorHandler: ErrorHandlerService,
     private currentRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -68,8 +70,8 @@ isValid: boolean=true;
       Datum: null,
       IDZap: 0,
       IDKlijenta: 0,
-      DeletedStavkeIDs: '',
-      V: ""
+      DeletedStavkeIDs: ''
+     
     }
     this.service.stavkePonude=[];
   
@@ -78,7 +80,6 @@ isValid: boolean=true;
   onDeleteStavka(rbr:number,i:number){
     if (rbr != null)
     this.service.formData.DeletedStavkeIDs += rbr + ",";
-
     this.service.stavkePonude.splice(i,1);
 
     }
@@ -90,16 +91,22 @@ AddOrEditStavka(stavkePonudeIndex, IDPonude){
   dialogConfing.disableClose = true;
   dialogConfing.width="50%";
   dialogConfing.data = {stavkePonudeIndex, IDPonude};
-this.dialog.open(StavkePonudeComponent,dialogConfing);
+  this.dialog.open(StavkePonudeComponent,dialogConfing);
 }
 
 onSubmit(form: NgForm) {
   if (this.validateForm()) {
     this.service.saveOrUpdatePonuda().subscribe(res => {
       this.resetForm();
-      this.toastr.success("Podaci usepšno sačuvani!","Unos ponude");
+      this.toastr.success("Podaci uspešno sačuvani!");
       this.router.navigate(['ponude']);
-    })
+    },
+    
+    error => {
+      this.errorHandler.handleError(error);
+            
+    }
+    )
   }
 
 }
@@ -117,7 +124,5 @@ if(this.service.formData.Datum == null) this.isValid = false;
   return this.isValid;
 }
 
-
- 
 
 }

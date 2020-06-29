@@ -21,10 +21,18 @@ namespace VipWebApi.Controllers
             db.Configuration.ProxyCreationEnabled = false;
         }
         // GET: api/Klijent
-        public IQueryable<Klijent> GetKlijent()
+        public System.Object GetKlijent()
         {
-            var k = db.Klijents;
-            return db.Klijents;
+
+            try
+            {
+                return db.Klijents;
+            }
+            catch (Exception)
+            {
+
+                return HttpStatusCode.NoContent;
+            }
         }
 
         protected override void Dispose(bool disposing)

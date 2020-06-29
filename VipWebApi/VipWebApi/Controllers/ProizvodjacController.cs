@@ -19,7 +19,9 @@ namespace VipWebApi.Controllers
         // GET: api/Proizvodjac
         public IQueryable<Proizvodjac> GetProizvodjacs()
         {
-            return db.Proizvodjacs;
+           
+                return db.Proizvodjacs;
+          
         }
 
         

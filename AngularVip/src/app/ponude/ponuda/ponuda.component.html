@@ -23,48 +23,45 @@
     </div>
 </div>
 <div class="row">
-    
+   <!--
     <div class="col-5">
         <div class="form-group">
-            <label >Datum</label>
+            <label>Datum</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="input-group-text"></div>
                 </div>
-                  <input name="Datum"  #Datum="ngModel" [(ngModel)]="service.formData.Datum"
-          type="datetime-local" class="form-control" title="Unos/izmena datuma" [class.is-invalid]="!isValid && service.formData.Datum == null"/>
-    
-        
+                
+                  <input type="datetime-local"   class="form-control" name="Datum"  #Datum="ngModel"
+                  value="{{service.formData.Datum | date:'yyyy-MM-dd'}}"
+                  [(ngModel)]="service.formData.Datum"
+           title="Unos/izmena datuma" [class.is-invalid]="!isValid && service.formData.Datum == null"/>
+          
         </div>
     </div>
   </div>
 
-
-<!--
-    <div class="col-5" id="picker">
-       
-        <div class="form-group">
-           
-   
-            <mat-form-field>
-                <input matInput [matDatepicker]="picker" 
-            
-      (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  class="form-control" title="Unos/izmena datuma" [class.is-invalid]="!isValid && service.formData.Datum == null">
-                <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                {{service.formData.Datum | date:'dd/MM/yyyy'}}
-              </mat-form-field>
-              
-    </div>
-</div>
 -->
+
+
+    <div class="col-5" id="picker">
+        <div class="form-group"> 
+            <mat-form-field>
+                <input [value]="service.formData.Datum"  matInput [matDatepicker]="picker" 
+      (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  class="form-control" title="Unos/izmena datuma" [class.is-invalid]="!isValid && service.formData.Datum == null">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+        </div>
+    </div>
+
 
 
 </div>
 <table class="table table-borderless">
     <thead class="thead-light">
     
-    <th>Uredjaj</th>
+    <th>Uređaj</th>
     <th>Tarifni paket</th>
     <th>
         <a class="btn btn-sm btn-success text-white" (click)="AddOrEditStavka(null,service.formData.IDPonude)"><i class="fa fa-plus"></i></a>
@@ -88,7 +85,7 @@
 </tbody>
 </table>
 <div class="form-group">
-   <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Sacuvaj </button>
+   <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Sačuvaj </button>
    <a  class="btn btn-outline-dark ml-1" routerLink="/ponude"><i class="fa fa-table"></i> Pogledaj sve ponude</a>
 </div>
 </form>

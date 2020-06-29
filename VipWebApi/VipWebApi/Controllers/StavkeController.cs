@@ -16,6 +16,7 @@ namespace VipWebApi.Controllers
         public int GetStavke()
         {
             var stavkas = db.StavkaPonudes.ToList();
+
             return stavkas.Count();
         }
     }

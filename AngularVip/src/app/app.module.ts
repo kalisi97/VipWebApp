@@ -18,6 +18,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
+import { NotFoundComponent } from './error-pages/not-found/not-found.component';
+import { NoContentComponent } from './error-pages/no-content/no-content.component';
 MatInputModule
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ MatInputModule
     StavkePonudeComponent,
     UredjajComponent,
     UredjajiComponent,
-    HomeComponent
+    HomeComponent,
+    InternalServerComponent,
+    NotFoundComponent,
+    NoContentComponent
   ],
   imports: [
     BrowserAnimationsModule,

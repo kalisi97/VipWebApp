@@ -8,6 +8,7 @@ import { TarifniPaket } from 'src/app/shared/tarifni-paket.model';
 import { NgForm } from '@angular/forms';
 import { PonudaService } from 'src/app/shared/ponuda.service';
 import { StavkaPonudaService } from 'src/app/shared/stavka-ponuda.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-stavke-ponude',
   templateUrl: './stavke-ponude.component.html',
@@ -18,11 +19,12 @@ export class StavkePonudeComponent implements OnInit {
   listaUredjaja: Uredjaj[];
   listaTarifa: TarifniPaket[];
   isValid: boolean = true;
- 
+  postoji: boolean = false;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data,
   public dialogRef: MatDialogRef<StavkePonudeComponent>,
   public uredjajService: UredjajService,
+  public toastr: ToastrService,
   public tarifaService: TarifniPaketService,
   public ponudaService: PonudaService) { }
 
@@ -53,12 +55,12 @@ if(this.data.stavkePonudeIndex == null){
     if (ctrl.selectedIndex == 0) {
       
       this.formData.Naziv = "";
-   //   this.formData.TarifniPaket = '';
+  
     }
     else {
       
       this.formData.Naziv = this.listaUredjaja[ctrl.selectedIndex - 1].Naziv;
-    //  this.formData.TarifniPaket = this.listaTarifa[ctrl.selectedIndex - 1].Naziv;
+    
     }
   }
 
@@ -75,8 +77,14 @@ if(this.data.stavkePonudeIndex == null){
   }
   onSubmit(form:NgForm){
     if (this.validateForm(form.value)) {
-      if(this.data.stavkePonudeIndex==null)
+      if(this.data.stavkePonudeIndex==null){
+        if(this.exist(form) == false){
 this.ponudaService.stavkePonude.push(form.value);
+       }else{
+          this.toastr.warning("Već ste uneli ovu stavku!");
+        }
+        
+      }
 else this.ponudaService.stavkePonude[this.data.stavkePonudeIndex] = form.value;
 this.dialogRef.close();
     }
@@ -91,6 +99,17 @@ this.dialogRef.close();
     return this.isValid;
   }
 
+  
+  exist(form:NgForm){
+       
+    for(let i = 0; i < this.ponudaService.stavkePonude.length; i++){
+     if(this.ponudaService.stavkePonude[i].Naziv == form.value.Naziv &&
+       this.ponudaService.stavkePonude[i].NazivT == form.value.NazivT){
+           this.postoji = true; break;
+       }
+   }
+return this.postoji;
+ }
  
 
 }

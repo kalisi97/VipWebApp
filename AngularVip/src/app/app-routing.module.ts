@@ -4,6 +4,9 @@ import { PonudeComponent } from './ponude/ponude.component';
 import { PonudaComponent } from './ponude/ponuda/ponuda.component';
 import { UredjajComponent } from './uredjaji/uredjaj/uredjaj.component';
 import { UredjajiComponent } from './uredjaji/uredjaji.component';
+import {InternalServerComponent} from './error-pages/internal-server/internal-server.component';
+import {NotFoundComponent} from './error-pages/not-found/not-found.component';
+import {NoContentComponent} from './error-pages/no-content/no-content.component';
 import { HomeComponent } from './home/home.component';
 
 
@@ -15,6 +18,9 @@ const routes: Routes = [
    {path:'', component:PonudaComponent},
    {path:'edit/:id', component:PonudaComponent}
   ]},
+  { path: '404', component: NotFoundComponent},
+      { path: '500', component: InternalServerComponent },
+      { path: '204', component: NoContentComponent },
   {path:'uredjaji',component:UredjajiComponent},
   {path:'uredjaj', children:[
     {path:'', component:UredjajComponent},

@@ -10,10 +10,10 @@
 
   <div class="row">
     <div class="form-group col-md-6">
-        <label>Uredjaj</label>
+        <label>Uređaj</label>
         <select name="IDUredjaja" #IDUredjaja="ngModel" [(ngModel)]="formData.IDUredjaja" class="form-control" (change)="popuniPolja($event.target)"
         [class.is-invalid]="!isValid && formData.IDUredjaja==0">
-            <option value="0">--Izaberi uredjaj--</option>
+            <option value="0">--Izaberi uređaj--</option>
            <option *ngFor="let item of listaUredjaja" value="{{item.IDUredjaja}}">{{item.Naziv}}</option> 
         </select>
     </div>
@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="form-group">
-    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Sacuvaj</button>
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Sačuvaj</button>
     <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Zatvori</button>
 </div>
 </form>

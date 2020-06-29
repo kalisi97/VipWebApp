@@ -19,79 +19,97 @@ namespace VipWebApi.Controllers
         // GET: api/Uredjaj
         public System.Object GetUredjaj()
         {
-            var result = (from a in db.Uredjajs
-                          join b in db.Proizvodjacs on a.IDProizvodjaca equals b.IDProizvodjaca
+            try
+            {
+                var result = (from a in db.Uredjajs
+                              join b in db.Proizvodjacs on a.IDProizvodjaca equals b.IDProizvodjaca
 
 
-                          select new
-                          {
-                              a.IDUredjaja,
-                              a.Naziv,
-                              a.Model,
-                              a.Boja,
-                              a.Cena,
-                              Proizvodjac = b.Naziv
+                              select new
+                              {
+                                  a.IDUredjaja,
+                                  a.Naziv,
+                                  a.Model,
+                                  a.Boja,
+                                  a.Cena,
+                                  Proizvodjac = b.Naziv
 
 
-                          }).ToList();
-
-            return result;
+                              }).ToList();
+                if (result == null) return HttpStatusCode.NoContent;
+                return result;
+            }
+            catch (Exception)
+            {
+                //The server encountered an unexpected condition which prevented it from fulfilling the request
+                return InternalServerError();
+            }
         }
 
         public IHttpActionResult GetUredjaj(long id)
         {
-            var uredjaj = (from a in db.Uredjajs
-                           where a.IDUredjaja == id
+            try
+            {
+               
+                var uredjaj = (from a in db.Uredjajs
+                               where a.IDUredjaja == id
 
-                           select new
-                           {
-                               a.IDUredjaja,
-                               a.Naziv,
-                               a.Model,
-                               a.Boja,
-                               a.Cena,
-                               a.IDProizvodjaca
+                               select new
+                               {
+                                   a.IDUredjaja,
+                                   a.Naziv,
+                                   a.Model,
+                                   a.Boja,
+                                   a.Cena,
+                                   a.IDProizvodjaca
 
 
-                           }).FirstOrDefault();
+                               }).FirstOrDefault();
 
-        
+                if (uredjaj == null) return NotFound(); ;
 
-            return Ok(new { uredjaj });
+                return Ok(new { uredjaj });
+            }
+            catch (Exception)
+            {
+                //The server encountered an unexpected condition which prevented it from fulfilling the request
+                return InternalServerError();
+            }
         }
-
 
 
 
 
         public IHttpActionResult GetUredjajByFilter(string nazivUredjaja)
         {
-            var uredjaj = (from a in db.Uredjajs
-                          where a.Naziv.ToLower().Contains(nazivUredjaja.ToLower())
+            try
+            {
+                if (String.IsNullOrEmpty(nazivUredjaja)) return NotFound();
+                var uredjaj = (from a in db.Uredjajs
+                               where a.Naziv.ToLower().Contains(nazivUredjaja.ToLower())
 
-                           select new
-                           {
-                               a.IDUredjaja,
-                               a.Naziv,
-                               a.Model,
-                               a.Boja,
-                               a.Cena,
-                               a.IDProizvodjaca
+                               select new
+                               {
+                                   a.IDUredjaja,
+                                   a.Naziv,
+                                   a.Model,
+                                   a.Boja,
+                                   a.Cena,
+                                   a.IDProizvodjaca
 
 
-                           }).FirstOrDefault();
+                               }).FirstOrDefault();
 
+                if(uredjaj == null) return NotFound();
 
-
-            return Ok(new { uredjaj });
+                return Ok(new { uredjaj });
+            }
+            catch (Exception)
+            {
+                //The server encountered an unexpected condition which prevented it from fulfilling the request
+                return InternalServerError();
+            }
         }
-
-
-
-
-
-
-
 
 
 
@@ -105,6 +123,7 @@ namespace VipWebApi.Controllers
 
             try
             {
+                if(uredjaj==null) return NotFound();
 
                 if (uredjaj.IDUredjaja == 0)
                 {
@@ -116,9 +135,10 @@ namespace VipWebApi.Controllers
 
                 db.SaveChanges();
                 return Ok();
-            }catch(Exception ex)
+            }catch(Exception)
             {
-                throw ex;
+                //The server encountered an unexpected condition which prevented it from fulfilling the request
+                return InternalServerError();
             }
             }
 
@@ -127,15 +147,24 @@ namespace VipWebApi.Controllers
         [ResponseType(typeof(Uredjaj))]
         public IHttpActionResult DeleteUredjaj(long id)
         {
-            Uredjaj uredjaj = db.Uredjajs
-                .SingleOrDefault(x => x.IDUredjaja == id);
+            try
+            {
+               
+                Uredjaj uredjaj = db.Uredjajs
+                        .SingleOrDefault(x => x.IDUredjaja == id);
 
-          
+                if (uredjaj == null) return NotFound();
+             
+                db.Uredjajs.Remove(uredjaj);
+                db.SaveChanges();
+               
+                return Ok(uredjaj);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
 
-            db.Uredjajs.Remove(uredjaj);
-            db.SaveChanges();
-
-            return Ok(uredjaj);
+            }
         }
         protected override void Dispose(bool disposing)
         {

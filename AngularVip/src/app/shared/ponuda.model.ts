@@ -8,6 +8,6 @@ export class Ponuda {
      IDKlijenta:number;
      IDZap :number;
      DeletedStavkeIDs: string;
-     V:string;
+   
     
 }

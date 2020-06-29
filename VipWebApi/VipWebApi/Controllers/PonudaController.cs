@@ -19,27 +19,35 @@ namespace VipWebApi.Controllers
         // GET: api/Ponuda
         public System.Object GetPonuda()
         {
-            var result = (from a in db.Ponudas
-                          join b in db.Klijents on a.IDKlijenta equals b.IDKlijenta 
-                          join c in db.Zaposlenis on a.IDZap equals c.IDZap
+            try
+            {
+                var result = (from a in db.Ponudas
+                              join b in db.Klijents on a.IDKlijenta equals b.IDKlijenta
+                              join c in db.Zaposlenis on a.IDZap equals c.IDZap
 
-                          select new
-                          {
-                              a.IDPonude,
-                              a.Datum,
-                             
-                              Klijent = b.Naziv,
-                              Zaposleni = c.ImePrezime
+                              select new
+                              {
+                                  a.IDPonude,
+                                  a.Datum,
 
-                              
-                            
-                          }).ToList();
+                                  Klijent = b.Naziv,
+                                  Zaposleni = c.ImePrezime
 
 
-           
+
+                              }).ToList();
+
+                if (result == null) return NotFound();
 
 
-            return result;
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                return InternalServerError();
+            }
         }
 
         public IHttpActionResult GetPonuda(long id)
@@ -56,6 +64,8 @@ namespace VipWebApi.Controllers
                              DeletedStavkeIDs = ""
 
                          }).FirstOrDefault();
+
+            if(ponuda == null) return NotFound();
 
             var ponudaDetails = (from a in db.StavkaPonudes
                                 join b in db.TarifniPakets on a.IDTP equals b.IDTP
@@ -74,7 +84,8 @@ namespace VipWebApi.Controllers
                                   
                                    
                                 }).ToList();
-            
+            if(ponudaDetails == null) return NotFound();
+
             return Ok(new { ponuda, ponudaDetails });
         }
        
@@ -87,7 +98,7 @@ namespace VipWebApi.Controllers
 
             try
             {
-
+                if (ponuda == null) return NotFound();
                 if (ponuda.IDPonude == 0)
                 {
                     db.Ponudas.Add(ponuda);
@@ -113,7 +124,7 @@ namespace VipWebApi.Controllers
 
                     Ponuda p = db.Ponudas.AsNoTracking().FirstOrDefault(a => a.IDPonude == ponuda.IDPonude);
 
-
+                    if (p == null) return NotFound();
                     foreach (var item in ponuda.StavkaPonudes)
                     {
                         if (item.IDPonude == 0)
@@ -147,7 +158,7 @@ namespace VipWebApi.Controllers
             catch (Exception ex)
             {
 
-                throw ex;
+                return InternalServerError();
             }
 
         }
@@ -156,18 +167,26 @@ namespace VipWebApi.Controllers
         [ResponseType(typeof(Ponuda))]
         public IHttpActionResult DeletePonuda(long id)
         {
-            Ponuda ponuda = db.Ponudas.Include(y => y.StavkaPonudes)
-                .SingleOrDefault(x => x.IDPonude == id);
-
-            foreach (var item in ponuda.StavkaPonudes.ToList())
+            try
             {
-                db.StavkaPonudes.Remove(item);
+                Ponuda ponuda = db.Ponudas.Include(y => y.StavkaPonudes)
+                      .SingleOrDefault(x => x.IDPonude == id);
+                if (ponuda == null) return NotFound();
+                foreach (var item in ponuda.StavkaPonudes.ToList())
+                {
+                    db.StavkaPonudes.Remove(item);
+                }
+
+                db.Ponudas.Remove(ponuda);
+                db.SaveChanges();
+
+                return Ok(ponuda);
             }
+            catch (Exception)
+            {
 
-            db.Ponudas.Remove(ponuda);
-            db.SaveChanges();
-
-            return Ok(ponuda);
+                return InternalServerError();
+            }
         }
 
 

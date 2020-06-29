@@ -33,10 +33,10 @@ term;
    
   }
   onPonudaDelete(id: number) {
-    if (confirm('Da li ste sigurni da zelite da obrisete podatke o ponudi?')) {
+    if (confirm('Da li ste sigurni da želite da obrišete podatke o ponudi?')) {
       this.ponudaService.deletePonuda(id).then(res => {
        this.refreshList();
-        this.toastr.warning("Uspesno obrisano", "Unos ponude");
+        this.toastr.warning("Uspešno obrisano!");
       });
     }
   }
